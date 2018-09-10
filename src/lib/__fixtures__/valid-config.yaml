@@ -1,0 +1,31 @@
+groups:
+  - context: context1
+    labelOnError: label1
+    filter: $not(pull_request)
+    rules:
+      - test: foo.x and foo.y
+        message: foo error 1
+
+      - test: bar.x or bar.y
+        message: bar error 1
+
+  - context: context2
+    rules:
+      - test: $match(title, /.*WIP.*/)
+        message: Pull request is a work in progress
+        level: warn
+        labelOnError:
+          - work-in-progress
+          - blocked
+
+  - context: context3
+    labelOnError:
+      - label1
+      - label2
+    rules:
+      - test: bar.x
+        message: error
+        labelOnError:
+          - label2
+          - label3
+

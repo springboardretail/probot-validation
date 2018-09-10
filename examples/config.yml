@@ -1,0 +1,27 @@
+ruleGroups:
+  - context: issue-validation
+    labelOnError: triage
+    filter: $not(pull_request)
+    rules:
+      - test: $count(issue.labels[$match(name, /status:.*/)]) != 1
+        message: Must have exactly one `status` label
+
+      - test: $count(issue.labels[$match(name, /kind:.*/)]) != 1
+        message: Must have exactly one `kind` label
+
+      - test: $count(issue.labels[$match(name, /priority:.*/)]) > 1
+        message: Must have no more than one `priority` label
+
+  - context: pre-merge-checks
+    labelOnError: blocked
+    filter: pull_request
+    rules:
+      - test: |
+          pull_request.labels[name = "changes-migrations"]
+          and $not(pull_request.labels[name = "migrations-are-safe"])
+        message: Pull request modifies migrations but they have not been verified as safe
+
+      - test: $match(pull_request.title, /.*WIP.*/)
+        message: Pull request is a work in progress
+        labelOnError: work-in-progress
+        level: warn

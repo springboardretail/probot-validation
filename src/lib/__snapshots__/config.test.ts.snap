@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`parseConfig when given a valid configuration 1`] = `
+Object {
+  "groups": Array [
+    Object {
+      "filter": "$not(pull_request)",
+      "rules": Array [
+        Object {
+          "context": "context1",
+          "labelOnError": Array [
+            "label1",
+          ],
+          "level": "error",
+          "message": "foo error 1",
+          "test": "foo.x and foo.y",
+        },
+        Object {
+          "context": "context1",
+          "labelOnError": Array [
+            "label1",
+          ],
+          "level": "error",
+          "message": "bar error 1",
+          "test": "bar.x or bar.y",
+        },
+      ],
+    },
+    Object {
+      "filter": undefined,
+      "rules": Array [
+        Object {
+          "context": "context2",
+          "labelOnError": Array [
+            "work-in-progress",
+            "blocked",
+          ],
+          "level": "warn",
+          "message": "Pull request is a work in progress",
+          "test": "$match(title, /.*WIP.*/)",
+        },
+      ],
+    },
+    Object {
+      "filter": undefined,
+      "rules": Array [
+        Object {
+          "context": "context3",
+          "labelOnError": Array [
+            "label1",
+            "label2",
+            "label3",
+          ],
+          "level": "error",
+          "message": "error",
+          "test": "bar.x",
+        },
+      ],
+    },
+  ],
+}
+`;
