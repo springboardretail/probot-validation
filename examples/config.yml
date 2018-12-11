@@ -1,4 +1,4 @@
-ruleGroups:
+groups:
   - context: issue-validation
     labelOnError: triage
     filter: $not(pull_request)
